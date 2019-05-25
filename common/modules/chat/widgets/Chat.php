@@ -1,7 +1,6 @@
 <?php
 namespace common\modules\chat\widgets;
 
-use common\modules\chat\widgets\assets\ChatAsset;
 use Yii;
 use yii\web\View;
 

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -24,6 +25,11 @@ use yii\behaviors\TimestampBehavior;
  */
 class Project extends \yii\db\ActiveRecord
 {
+    const RELATION_PROJECT_CREATOR = 'creator';
+    const RELATION_PROJECT_UPDATER = 'updater';
+    const RELATION_PROJECT_PROJECT_USER = 'projectUsers';
+    const RELATION_PROJECT_TASKS = 'tasks';
+
     /**
      * {@inheritdoc}
      */
@@ -70,6 +76,11 @@ class Project extends \yii\db\ActiveRecord
             [
                 'class' => TimestampBehavior::class
             ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'creator_id',
+                'updatedByAttribute' => 'updater_id'
+            ]
         ];
     }
 

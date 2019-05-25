@@ -28,6 +28,11 @@ use yii\behaviors\TimestampBehavior;
  */
 class Task extends \yii\db\ActiveRecord
 {
+    const RELATION_TASK_PROJECT = 'project';
+    const RELATION_TASL_EXECUTOR = 'executor';
+    const RELATION_TASk_CREATOR = 'creator';
+    const RELATION_TASK_UPDATER = 'updater';
+
     /**
      * {@inheritdoc}
      */
@@ -79,6 +84,11 @@ class Task extends \yii\db\ActiveRecord
             [
                 'class' => TimestampBehavior::class
             ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'creator_id',
+                'updatedByAttribute' => 'updater_id'
+            ]
         ];
     }
 
