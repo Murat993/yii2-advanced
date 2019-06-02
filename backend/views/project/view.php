@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Project;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -32,11 +33,41 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            'active',
-            'creator_id',
-            'updater_id',
-            'created_at',
-            'updated_at',
+            [
+                'label' => 'Астивный',
+                'attribute' => 'active',
+                'value' => function (Project $data) {
+                    return Project::getStatusProject($data->active);
+                }
+            ],
+            [
+                'label' => 'Создатель',
+                'attribute' => 'creator_id',
+                'value' => function (Project $data) {
+                    return Project::getProjectUser($data->creator_id);
+                }
+            ],
+            [
+                'label' => 'Обновитель',
+                'attribute' => 'creator_id',
+                'value' => function (Project $data) {
+                    return Project::getProjectUser($data->creator_id);
+                }
+            ],
+            [
+                'label' => 'Дата создания',
+                'attribute' => 'created_at',
+                'value' => function (Project $data) {
+                    return date('Y-m-d', $data->created_at);
+                }
+            ],
+            [
+                'label' => 'Дата обновления',
+                'attribute' => 'updated_at',
+                'value' => function (Project $data) {
+                    return date('Y-m-d', $data->updated_at);
+                }
+            ],
         ],
     ]) ?>
 

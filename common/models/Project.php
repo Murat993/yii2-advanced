@@ -2,9 +2,12 @@
 
 namespace common\models;
 
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
+use yii\web\Link;
 
 /**
  * This is the model class for table "{{%project}}".
@@ -29,6 +32,14 @@ class Project extends \yii\db\ActiveRecord
     const RELATION_PROJECT_UPDATER = 'updater';
     const RELATION_PROJECT_PROJECT_USER = 'projectUsers';
     const RELATION_PROJECT_TASKS = 'tasks';
+
+    const STATUS_NOT_ACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
+    const STATUSES_LABELS = [
+      self::STATUS_NOT_ACTIVE => 'неактивный',
+      self::STATUS_ACTIVE => 'активный',
+    ];
 
     /**
      * {@inheritdoc}
@@ -80,7 +91,11 @@ class Project extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'creator_id',
                 'updatedByAttribute' => 'updater_id'
-            ]
+            ],
+            'saveRelations' => [
+                'class'     => SaveRelationsBehavior::class,
+                'relations' => [self::RELATION_PROJECT_PROJECT_USER]
+            ],
         ];
     }
 
@@ -114,6 +129,16 @@ class Project extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Task::className(), ['project_id' => 'id']);
+    }
+
+    public static function getStatusProject($status)
+    {
+        return ArrayHelper::getValue(self::STATUSES_LABELS, $status);
+    }
+
+    public static function getProjectUser($user)
+    {
+        return ArrayHelper::getValue(User::find()->select('username')->indexBy('id')->column(), $user);
     }
 
     /**
