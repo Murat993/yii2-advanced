@@ -55,8 +55,9 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'creator_id', 'updater_id', 'created_at'], 'required'],
+            [['title', 'description',], 'required'],
             [['description'], 'string'],
+            [[ 'creator_id', 'updater_id', 'created_at'], 'safe'],
             [['active', 'creator_id', 'updater_id', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
@@ -71,13 +72,13 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'description' => Yii::t('app', 'Description'),
-            'active' => Yii::t('app', 'Active'),
-            'creator_id' => Yii::t('app', 'Creator ID'),
-            'updater_id' => Yii::t('app', 'Updater ID'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'title' => Yii::t('app', 'Имя проекта'),
+            'description' => Yii::t('app', 'Описание проекта'),
+            'active' => Yii::t('app', 'Активный'),
+            'creator_id' => Yii::t('app', 'Создатель проекта'),
+            'updater_id' => Yii::t('app', 'Обновитель проекта'),
+            'created_at' => Yii::t('app', 'Дата создания'),
+            'updated_at' => Yii::t('app', 'Дата обновления'),
         ];
     }
 
@@ -139,6 +140,11 @@ class Project extends \yii\db\ActiveRecord
     public static function getProjectUser($user)
     {
         return ArrayHelper::getValue(User::find()->select('username')->indexBy('id')->column(), $user);
+    }
+
+    public function getUsersRoles()
+    {
+        return $this->getProjectUsers()->select('role')->indexBy('user_id')->column();
     }
 
     /**

@@ -1,45 +1,56 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel common\models\search\ProjectSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Projects';
-$this->params['breadcrumbs'][] = $this->title;
+use yii\widgets\ListView;
 ?>
-<div class="project-index">
+<header class="main__header">
+    <h1 class="main__title">Список проектов</h1>
+    <div class="main__sort">
+    <?= Html::button(Yii::t('app', 'Создать проект'),
+        ['class' => 'btn-create-project', 'id' => 'modalProjectButton',
+            'value' => Url::to("project/create")]) ?>
+    </div>
+</header>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Project', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+<?php Pjax::begin([
+    'id' => 'list-pjax',
+    'scrollTo' => 0,
+    'timeout' => 10000,
+    'enablePushState' => false
+]); ?>
+<div class="shops-dishes shops-only">
+    <?php
+    echo ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'title',
-            'description:ntext',
-            'active',
-            'creator_id',
-            //'updater_id',
-            //'created_at',
-            //'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+        'itemView' => '_view',
+        'itemOptions' => [
+            'class' => 'shops-dishes__item shops-only__item',
+            'tag' => 'li'
         ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
+        'layout'=>'
+                <ul class="shops-dishes__list">
+                    {items}
+                </ul>
+            ',
+        'summary' => Yii::t('app', 'Сборочных пунктов {count} из {totalCount}'),
+    ])
+    ?>
 </div>
+<?php Pjax::end(); ?>
+
+
+<div id="modal-project" class="fade modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id='modalProjectContent'></div>
+            </div>
+        </div>
+    </div>
+</div>
+

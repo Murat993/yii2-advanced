@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Project;
 use common\models\search\ProjectSearch;
+use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +26,7 @@ class ProjectController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'create' => ['POST'],
                 ],
             ],
         ];
@@ -35,9 +38,9 @@ class ProjectController extends Controller
      */
     public function actionIndex()
     {
+        $this->view->title = 'Создать проект';
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -66,11 +69,14 @@ class ProjectController extends Controller
     {
         $model = new Project();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+           $model->save();
+            return Json::encode('asdasdsa');
+           // sleep(5);
+            //return $this->redirect(['index']);
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }

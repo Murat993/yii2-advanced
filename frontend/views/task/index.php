@@ -1,48 +1,33 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel common\models\search\TaskSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tasks';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="task-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?= Html::button(Yii::t('app', 'Создать категорию'), ['class' => 'btn btn-success']) ?>
 
-    <p>
-        <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'title',
-            'description:ntext',
-            'project_id',
-            'executor_id',
-            //'started_at',
-            //'completed_at',
-            //'creator_id',
-            //'updater_id',
-            //'created_at',
-            //'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
+<div class="container">
+    <div class="col">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Todos ({{todoList.length}})</h4>
+            </div>
+            <div class="card-block">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Add a Task"/>
+                    <button href="#" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <ul class='list-group'>
+                    <li class="list-group-item justify-content-between">
+                        {{ todo.text }}
+                        <button class="btn btn-sm btn-danger"><i aria-hidden="true" class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
