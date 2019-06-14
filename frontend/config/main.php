@@ -14,11 +14,18 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii/web/JsonParser'
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'on ' . \yii\web\User::EVENT_AFTER_LOGIN => function() {
+                Yii::info('success', 'auth');
+                 return;
+            }
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -31,6 +38,11 @@ return [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/auth.log',
+                    'categories' => ['auth'],
+                ],
             ],
         ],
         'errorHandler' => [
@@ -40,7 +52,15 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => \yii\rest\UrlRule::class, 'controller' => 'api/user'],
+                ['class' => \yii\rest\UrlRule::class, 'controller' => 'api/task'],
+                ['class' => \yii\rest\UrlRule::class, 'controller' => 'api/project'],
             ],
+        ],
+    ],
+    'modules' => [
+        'api' => [
+            'class' => 'frontend\modules\api\Module',
         ],
     ],
     'params' => $params,
