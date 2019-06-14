@@ -9,9 +9,4 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('submit', '.ajax-form', function (e) {
-        e.preventDefault();
-        let form = $(this);
-        sendAjaxFormRequest(form, form.attr('action'), '#list-pjax', '#modal-project');
-    });
 })

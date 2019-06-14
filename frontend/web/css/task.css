@@ -77,3 +77,6 @@
 .list-group-item {
      padding: 9px 10px;
 }
+.list-group-item:hover {
+    background: #e2dadf;
+}

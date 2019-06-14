@@ -8,12 +8,6 @@ use yii\widgets\Pjax;
 
 $this->title = 'Создать проект';
 ?>
-<?php Pjax::begin([
-    'id' => 'list-pjax',
-    'scrollTo' => 0,
-    'timeout' => 10000,
-    'enablePushState' => false
-]); ?>
 <div class="project-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -23,4 +17,3 @@ $this->title = 'Создать проект';
     ]) ?>
 
 </div>
-<?php Pjax::end(); ?>

@@ -13,7 +13,7 @@ $this->title = 'Авторизация';
     <div class="login__img"></div>
     <div class="login__content">
         <div class="login__logo">
-            <a href="/"><img src="/img/group-logo.svg" alt="login__form"></a>
+            <img src="/img/group-logo.svg" class="logo-group"  alt="login__form">
         </div>
         <div class="login__form">
             <h1 class="login__title">Авторизация</h1>
@@ -24,7 +24,7 @@ $this->title = 'Авторизация';
             <?= $form->field($model, 'password')
                 ->passwordInput(['class' => 'order__input']) ?>
 
-            <?= Html::submitButton('Login', ['class' => 'button', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Войти', ['class' => 'button', 'name' => 'login-button']) ?>
 
             <?php ActiveForm::end(); ?>
         </div>

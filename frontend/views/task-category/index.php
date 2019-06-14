@@ -5,14 +5,17 @@ use yii\widgets\Pjax;
 use yii\widgets\ListView;
 ?>
 <header class="main__header">
-    <h1 class="main__title">Список проектов</h1>
+    <h1 class="main__title">Список задач</h1>
     <div class="main__sort">
-        <?= Html::button(Yii::t('app', 'Создать проект'),
-            ['class' => 'btn-create-project', 'id' => 'modalProjectButton']) ?>
+        <?= Html::button(Yii::t('app', 'Создать категорию'),
+            ['class' => 'btn-create-task-category',
+             'id' => 'modalTaskCategoryButton',
+             'data-project_id' => Yii::$app->request->get('id'),
+            ]) ?>
     </div>
 </header>
 <?php Pjax::begin([
-    'id' => 'project-pjax',
+    'id' => 'task-category-pjax',
     'scrollTo' => 0,
     'timeout' => 10000,
 ]); ?>
@@ -37,14 +40,14 @@ use yii\widgets\ListView;
 <?php Pjax::end(); ?>
 
 
-<div id="modal-project" class="fade modal" role="dialog">
+<div id="modal-task-category" class="fade modal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <div id='modalProjectContent'></div>
+                <div id='modalTaskCategoryContent'></div>
             </div>
         </div>
     </div>

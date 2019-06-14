@@ -27,14 +27,25 @@
     let adm = new ADM();
     $('body').append(adm.setMaterialError());
 
-    $('#list-pjax').on('pjax:timeout', function (event, data) {
+    $('#project-pjax').on('pjax:timeout', function (event, data) {
         event.preventDefault()
     });
 
-    $('#list-pjax').on('pjax:beforeSend', function () {
+    $('#project-pjax').on('pjax:beforeSend', function () {
         adm.setLoader();
     });
-    $('#list-pjax').on('pjax:end', function () {
+    $('#project-pjax').on('pjax:end', function () {
+        adm.removeLoader();
+    })
+
+    $('#task-category-pjax').on('pjax:timeout', function (event, data) {
+        event.preventDefault()
+    });
+
+    $('#task-category-pjax').on('pjax:beforeSend', function () {
+        adm.setLoader();
+    });
+    $('#task-category-pjax').on('pjax:end', function () {
         adm.removeLoader();
     })
 
@@ -57,3 +68,10 @@
             },
         })
     }
+
+    $(document).on('submit', '.ajax-form', function (e) {
+        e.preventDefault();
+        let form = $(this);
+        let pjaxName = $(this).data('pjax_name_id');
+        sendAjaxFormRequest(form, form.attr('action'), `#${pjaxName}`, '#modal-task-category');
+    });

@@ -1,10 +1,17 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 
-<?= Html::button(Yii::t('app', 'Создать категорию'), ['class' => 'btn btn-success']) ?>
+<header class="main__header">
+    <h1 class="main__title">Список задач</h1>
+    <div class="main__sort">
+        <?= Html::button(Yii::t('app', 'Создать категорию'),
+            ['class' => 'btn-create-task-category']) ?>
+    </div>
+</header>
 
 <div class="container">
     <div class="col">

@@ -15,7 +15,7 @@ class m190519_140441_create_task_table extends Migration
         $this->createTable('{{%task}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(255)->notNull(),
-            'description' => $this->text()->notNull(),
+            'description' => $this->text()->null(),
             'project_id' => $this->integer()->null(),
             'executor_id' => $this->integer()->null(),
             'started_at' => $this->integer()->null(),

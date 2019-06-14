@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Project;
-use common\models\search\ProjectSearch;
-use yii\filters\AccessControl;
-use yii\helpers\Json;
+use common\models\TaskCategory;
+use common\models\search\TaskCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProjectController implements the CRUD actions for Project model.
+ * TaskCateogoryController implements the CRUD actions for TaskCategory model.
  */
-class ProjectController extends Controller
+class TaskCategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -26,21 +24,21 @@ class ProjectController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                    'create' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all Project models.
+     * Lists all TaskCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $this->view->title = 'Создать проект';
-        $searchModel = new ProjectSearch();
+        $this->view->title = 'Список задач';
+        $searchModel = new TaskCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -48,7 +46,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Displays a single Project model.
+     * Displays a single TaskCategory model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,25 +59,26 @@ class ProjectController extends Controller
     }
 
     /**
-     * Creates a new Project model.
+     * Creates a new TaskCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_project)
     {
-        $model = new Project();
+        $model = new TaskCategory();
 
         if ($model->load(Yii::$app->request->post())) {
-           $model->save();
+            $model->save();
         }
 
         return $this->renderAjax('create', [
             'model' => $model,
+            'id_project' => $id_project,
         ]);
     }
 
     /**
-     * Updates an existing Project model.
+     * Updates an existing TaskCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,7 +98,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Deletes an existing Project model.
+     * Deletes an existing TaskCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +112,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * Finds the Project model based on its primary key value.
+     * Finds the TaskCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Project the loaded model
+     * @return TaskCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Project::findOne($id)) !== null) {
+        if (($model = TaskCategory::findOne($id)) !== null) {
             return $model;
         }
 

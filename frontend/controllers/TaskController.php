@@ -6,6 +6,7 @@ use Yii;
 use common\models\Task;
 use common\models\search\TaskSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,15 +66,15 @@ class TaskController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Task();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isAjax) {
+            $model = new Task();
+            $taskCategory = Yii::$app->request->post('taskCategory');
+            $title = Yii::$app->request->post('title');
+            $model->task_category_id = (int)$taskCategory;
+            $model->title = $title;
+            $model->save();
+            return Json::encode(['id' => $model->id]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -103,11 +104,12 @@ class TaskController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        if (Yii::$app->request->isAjax) {
+            $id = Yii::$app->request->post('taskId');
+            $this->findModel((int)$id)->delete();
+        }
     }
 
     /**
