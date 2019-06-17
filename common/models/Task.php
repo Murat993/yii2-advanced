@@ -127,6 +127,22 @@ class Task extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskCategory()
+    {
+        return $this->hasOne(TaskCategory::className(), ['id' => 'task_category_id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['task_id' => 'id']);
+    }
+
+
+    /**
      * {@inheritdoc}
      * @return \common\models\query\TaskQuery the active query used by this AR class.
      */

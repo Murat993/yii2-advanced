@@ -1526,14 +1526,19 @@ ul.dropdown-menu li:first-child a {
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem; }
 
+#form-comment {
+    width: 100%;
+}
+
 .modal-header .close {
     padding: 1rem;
     margin: -1rem -1rem -1rem auto; }
 #menuModal {
     padding-right: 0 !important; }
 
-.modal-dialog {
-    max-width: 1320px; }
+.modal-dialog-modal {
+    margin: 0 auto;
+    max-width: 1000px;}
 
 .modal-content {
     flex-direction: row;
@@ -1543,7 +1548,7 @@ ul.dropdown-menu li:first-child a {
         flex-direction: column-reverse; } }
 
 .modal__content {
-    width: 50%;
+    width: 100%;
     max-height: 700px;
     position: relative; }
 @media screen and (max-width: 768px) {
@@ -1563,7 +1568,7 @@ ul.dropdown-menu li:first-child a {
 
 .modal__content-main {
     max-height: 590px;
-    overflow: auto;
+    overflow: auto !important;
     direction: rtl; }
 .modal__content-main * {
     direction: ltr; }

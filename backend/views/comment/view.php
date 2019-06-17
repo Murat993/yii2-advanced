@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\TaskCategory */
+/* @var $model common\models\Comment */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Task Categories', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="task-category-view">
+<div class="comment-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'comment',
+            'level',
+            'status',
             'project_id',
-            'name',
+            'task_id',
+            'task_category_id',
+            'creator_id',
+            'updater_id',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

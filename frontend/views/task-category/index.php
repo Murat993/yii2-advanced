@@ -53,3 +53,14 @@ use yii\widgets\ListView;
     </div>
 </div>
 
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog-modal modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal__content"></div>
+        </div>
+    </div>
+</div>
+
+

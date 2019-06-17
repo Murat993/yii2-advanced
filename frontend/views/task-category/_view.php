@@ -23,7 +23,7 @@ use yii\helpers\Url;
             </div>
             <ul class='list-group task-list-category'>
                 <?php foreach ($model->getTasks()->asArray()->all() as $task): ?>
-                <li class="list-group-item justify-content-between">
+                <li class="list-group-item justify-content-between list-group-item-js" data-task_id_list="<?=$task['id']?>">
                     <?= $task['title'] ?>
                     <button class="btn btn-sm btn-danger remove-task_category"
                             data-task_id="<?=$task['id']?>">

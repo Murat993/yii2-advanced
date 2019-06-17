@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#modalTaskCategoryButton').click(function () {
-       let projectId = $(this).data('project_id');
+        let projectId = $(this).data('project_id');
         $.ajax({
             type: 'POST',
             url: `/task-category/create?id_project=${projectId}`,
@@ -20,8 +20,8 @@ $(document).ready(function () {
             $.ajax({
                 type: 'POST',
                 data: {
-                    taskCategory : taskCategory,
-                    title : $(currentInput).val(),
+                    taskCategory: taskCategory,
+                    title: $(currentInput).val(),
                 },
                 url: `/task/create`,
                 success: function (data) {
@@ -44,15 +44,56 @@ $(document).ready(function () {
     $('body').on('click', '.remove-task_category', function () {
         let taskId = $(this).data('task_id');
         let liParentDeleteAttr = $(this).parents('.list-group-item')[0];
-            $.ajax({
-                type: 'POST',
-                data: {
-                    taskId : taskId,
-                },
-                url: `/task/delete`,
-                success: function (data) {
-                    $(liParentDeleteAttr).hide(300);
-                }
-            });
+        $.ajax({
+            type: 'POST',
+            data: {
+                taskId: taskId,
+            },
+            url: `/task/delete`,
+            success: function (data) {
+                $(liParentDeleteAttr).hide(300);
+            }
+        });
     })
+
+    $('body').on('click', '.list-group-item-js', function () {
+        let taskId = $(this).data('task_id_list');
+        $.ajax({
+            type: 'POST',
+            data: {taskId: taskId},
+            url: `/task/view`,
+            success: function (data) {
+                $('.modal__content').html(data);
+                $('#menuModal').modal('show');
+            }
+        });
+    })
+
+    $(document).on('submit', '.send-comment_task', function (e) {
+        e.preventDefault();
+        let form = $(this);
+        $.ajax({
+            type: 'POST',
+            data: form.serialize(),
+            url: `/comment/create`,
+            success: function (data) {
+                let comment = JSON.parse(data);
+                console.log(comment);
+                $('.comments__list').append(`
+                    <li class="comments__item">
+                        <div class="comments__header">
+                            <div class="comments__name">${comment.username}
+                                <span class="comments__date">${comment.createTime}</span>
+                            </div>
+                        </div>
+                        <div class="comments__message">
+                            ${comment.comment}
+                        </div>
+                        <a href="#" class="comments__reply">Ответить</a>
+                    </li>`);
+                $('.comment_input').val('');
+            }
+        });
+    });
+
 })
