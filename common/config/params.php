@@ -5,4 +5,5 @@ return [
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
     'user.passwordResetTokenExpire' => 3600,
+    'user.rememberMeDuration' => 30 * 24 * 60
 ];

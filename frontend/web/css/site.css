@@ -1712,6 +1712,8 @@ button.close span {
         margin-bottom: 10px; } }
 
 .comments__soc-list {
+    margin-top: 30px;
+    margin-left: 45%;
     display: flex; }
 
 .comments__soc-item {

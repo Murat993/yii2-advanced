@@ -48,14 +48,12 @@ AppAsset::register($this);
         </div>
         <div class="header-user-login dropdown" >
             <a href="#" id="js-user-main-menu-link" class="">
-                <div class="user-avatar"><img class="user-avatar-img" src="/img/no-photo.jpg" alt=""></div>
+                <div class="user-avatar"><img class="user-avatar-img" src="/img/<?= Yii::$app->user->identity->avatar ?>" alt=""></div>
                 <div class="user-name"><?=Yii::$app->user->identity->username?></div>
             </a>
             <ul class="dropdown-menu user-menu" aria-labelledby="dropdownMenuButton" style="display: none;">
-                <li><a href="/user/foodorders/admin/">Заказы</a></li>
-                <li><a href="/user/useraddresslist/addresslist/">Мои адреса</a></li>
                 <li><a href="/user/">Профиль</a></li>
-                <li class="logout"><a href="/logout/">Выйти</a></li>
+                <li class="logout"><a href="<?= \yii\helpers\Url::to(['site/logout']) ?>">Выйти</a></li>
             </ul>
         </div>
         <a href="#" class="header__profile">
@@ -89,7 +87,7 @@ AppAsset::register($this);
 <footer class="footer__wrapper">
     <header class="footer__header">
         <img src="/img/group-logo.svg" alt="logo">
-        <div class="copyright__text">Copyright © 2016 Luxystech Inc. All right reserved.</div>
+        <div class="copyright__text">Copyright © <?= date('Y') ?> Project</div>
     </header>
 </footer>
 <?php $this->endBody() ?>

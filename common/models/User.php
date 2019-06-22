@@ -1,7 +1,7 @@
 <?php
 namespace common\models;
 
-use phpDocumentor\Reflection\Types\Self_;
+use common\models\Auth;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $avatar
  * @property string $password write-only password
  *
  * @property Task $activedTasks
@@ -94,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email'], 'required'],
+            [['username'], 'required'],
             ['email', 'email'],
             ['avatar', 'default', 'value' => 'no-image'],
             [['username', 'password', 'email'], 'safe'],
@@ -304,5 +305,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUpdatedProjects()
     {
         return $this->hasMany(Project::className(), ['updater_id' => 'id']);
+    }
+
+    public function getAuths()
+    {
+        return $this->hasMany(Auth::className(), ['user_id' => 'id']);
     }
 }

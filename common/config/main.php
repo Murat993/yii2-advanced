@@ -31,6 +31,16 @@ return [
             'itemFile' => '@console/rbac/items.php',
             'assignmentFile' => '@console/rbac/assignments.php',
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'vkontakte' => [
+                    'class' => 'yii\authclient\clients\VKontakte',
+                    'clientId' => '6847586',
+                    'clientSecret' => 'VjPWPQhrJVsDyM614Jfk',
+                ],
+            ],
+        ]
     ],
     'modules' => [
         'chat' => [
