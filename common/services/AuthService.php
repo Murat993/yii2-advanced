@@ -8,6 +8,8 @@ use yii\base\Component;
 
 class AuthService extends Component
 {
+    const ROLE_ADMIN = 'admin';
+    const ROLE_USER = 'user';
     public function givePermissions($id_user, $type)
     {
         $authManager = \Yii::$app->authManager;

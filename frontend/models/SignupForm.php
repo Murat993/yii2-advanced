@@ -1,6 +1,7 @@
 <?php
 namespace frontend\models;
 
+use common\services\AuthService;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -14,7 +15,14 @@ class SignupForm extends Model
     public $email;
     public $password;
 
-
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Логин'),
+            'password' => Yii::t('app', 'Пароль'),
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -51,10 +59,13 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->status = User::STATUS_INACTIVE;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        return $user->save() &&
+               $this->sendEmail($user) &&
+               Yii::$app->authService->givePermissions($user->id, AuthService::ROLE_ADMIN);
 
     }
 
@@ -65,15 +76,13 @@ class SignupForm extends Model
      */
     protected function sendEmail($user)
     {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
+        $views = ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'];
+        $data = ['user' => $user];
+        return Yii::$app->emailService->send(
+            $this->email,
+            'Account registration at ' . Yii::$app->name,
+            $views,
+            $data
+        );
     }
 }

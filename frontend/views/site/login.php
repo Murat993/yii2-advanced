@@ -45,7 +45,7 @@ $this->title = 'Авторизация';
                 </ul>
                 <?php AuthChoice::end(); ?>
         </div>
-
-        <div class="login__forget">Забыли пароль?</div>
+        <?= Html::a('Забыли пароль?', ['site/request-password-reset'], ['class' =>'login__forget']) ?>
+        <?= Html::a('Регистрация', ['site/signup'], ['class' =>'login__forget']) ?>
     </div>
 </div>

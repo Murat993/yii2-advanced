@@ -26,6 +26,9 @@ return [
                  Yii::$app->notificationService->sendAboutNewProjectRole($e->user, $e->project, $e->role);
             }
         ],
+        'authService' => [
+            'class' => \common\services\AuthService::class,
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
