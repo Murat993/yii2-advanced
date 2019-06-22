@@ -25,7 +25,8 @@ class RbacController extends Controller
         $auth->addChild($user, $createProject);
         $auth->addChild($admin, $createProject);
 
-        $auth->assign($user, 2);
+        $auth->assign($user, 3);
         $auth->assign($admin, 1);
+        $auth->assign($admin, 8);
     }
 }
