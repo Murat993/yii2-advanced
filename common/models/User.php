@@ -22,6 +22,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $avatar
+ * @property string $social_photo
  * @property string $password write-only password
  *
  * @property Task $activedTasks
@@ -41,6 +42,7 @@ class User extends ActiveRecord implements IdentityInterface
     const RELATION_USER_CREATED_TASKS = 'createdTasks';
     const RELATION_USER_UPDATED_TASKS = 'updatedTasks';
     const RELATION_USER_UPDATED_PROJECTS = 'updatedProjects';
+    const RELATION_USER_PROJECT_USER = 'userProjects';
 
     const STATUSES = [
         self::STATUS_DELETED,
@@ -97,7 +99,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['username'], 'required'],
             ['email', 'email'],
-            ['avatar', 'default', 'value' => 'no-image'],
+            ['avatar', 'string'],
             [['username', 'password', 'email'], 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => self::STATUSES],
@@ -310,5 +312,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuths()
     {
         return $this->hasMany(Auth::className(), ['user_id' => 'id']);
+    }
+
+    public function getUserProjects()
+    {
+        return $this->hasMany(ProjectUser::className(), ['user_id' => 'id']);
+    }
+
+    public function getUserViaProjects()
+    {
+        return $this->hasMany(Project::className(), ['id' => 'project_id'])
+            ->via(self::RELATION_USER_PROJECT_USER);
     }
 }

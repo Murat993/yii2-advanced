@@ -14,7 +14,8 @@ use yii\widgets\ActiveForm;
         'id'=>'form-project',
         'options' => [
             'class' => 'ajax-form',
-            'data-pjax_name_id' => 'project-pjax'
+            'data-pjax_name_id' => 'project-pjax',
+            'data-modal_id' => 'modal-project',
         ],
     ]); ?>
 

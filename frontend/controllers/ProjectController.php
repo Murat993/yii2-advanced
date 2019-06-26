@@ -64,6 +64,7 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        _end($this->findModel($id)  );
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

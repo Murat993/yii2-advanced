@@ -16,7 +16,6 @@ class m190519_140459_create_project_user_table extends Migration
             'id' => $this->primaryKey(),
             'project_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
-            'role' => "ENUM('manager', 'developer', 'tester')",
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addForeignKey('fx_project_user_project', 'project_user', ['project_id'], 'project', ['id'],'RESTRICT', 'CASCADE');

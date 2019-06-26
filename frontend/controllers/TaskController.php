@@ -91,6 +91,29 @@ class TaskController extends Controller
         }
     }
 
+    public function actionTakeTask()
+    {
+        if (Yii::$app->request->isAjax) {
+            $taskId = Yii::$app->request->post('taskId');
+            $user = Yii::$app->request->post('user');
+            $model = Task::findOne($taskId);
+            $model->executor_id = (int)$user;
+            $model->started_at = strtotime(date('Y-m-d H:i'));
+            $model->save();
+        }
+    }
+
+    public function actionCompleteTask()
+    {
+        if (Yii::$app->request->isAjax) {
+            $taskId = Yii::$app->request->post('taskId');
+            $model = Task::findOne($taskId);
+            $model->completed_at = strtotime(date('Y-m-d H:i'));
+            $model->save();
+        }
+    }
+
+
     /**
      * Updates an existing Task model.
      * If update is successful, the browser will be redirected to the 'view' page.

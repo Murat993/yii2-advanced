@@ -73,5 +73,6 @@
         e.preventDefault();
         let form = $(this);
         let pjaxName = $(this).data('pjax_name_id');
-        sendAjaxFormRequest(form, form.attr('action'), `#${pjaxName}`, '#modal-task-category');
+        let modalId = $(this).data('modal_id');
+        sendAjaxFormRequest(form, form.attr('action'), `#${pjaxName}`, `#${modalId}`);
     });

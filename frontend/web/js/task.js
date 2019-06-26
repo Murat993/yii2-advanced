@@ -27,7 +27,7 @@ $(document).ready(function () {
                 success: function (data) {
                     let dataJson = JSON.parse(data);
                     $(taskList[0]).append(`
-                        <li class="list-group-item justify-content-between">
+                        <li class="list-group-item justify-content-between list-group-item-js" data-task_id_list="${dataJson.id}">
                             ${$(currentInput).val()}
                             <button class="btn btn-sm btn-danger remove-task_category"
                              data-task_id="${dataJson.id}">
@@ -95,5 +95,30 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('body').on('click', '.give_task_to_user', function () {
+        let taskUser = $(this).data('task_user');
+        let taskId = $(this).data('task_id');
+        $.ajax({
+            type: 'POST',
+            url: '/task/take-task',
+            data: {taskId: taskId, user: taskUser},
+            success: function () {
+                location.reload();
+            },
+        })
+    })
+
+    $('body').on('click', '.complete_task_to_user', function () {
+        let taskId = $(this).data('task_id');
+        $.ajax({
+            type: 'POST',
+            url: '/task/complete-task',
+            data: {taskId: taskId},
+            success: function () {
+                location.reload();
+            },
+        })
+    })
 
 })

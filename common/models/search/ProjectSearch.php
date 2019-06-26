@@ -2,6 +2,7 @@
 
 namespace common\models\search;
 
+use common\models\ProjectUser;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Project;
@@ -40,7 +41,8 @@ class ProjectSearch extends Project
      */
     public function search($params)
     {
-        $query = Project::find();
+        $query = Project::find()->joinWith('projectUsers')
+                ->where([ ProjectUser::tableName().'.user_id' => \Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 

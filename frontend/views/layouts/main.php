@@ -48,11 +48,10 @@ AppAsset::register($this);
         </div>
         <div class="header-user-login dropdown" >
             <a href="#" id="js-user-main-menu-link" class="">
-                <div class="user-avatar"><img class="user-avatar-img" src="/img/<?= Yii::$app->user->identity->avatar ?>" alt=""></div>
+                <div class="user-avatar"><img class="user-avatar-img" src="<?= Yii::$app->imageService->getUserAvatar()  ?>" alt=""></div>
                 <div class="user-name"><?=Yii::$app->user->identity->username?></div>
             </a>
             <ul class="dropdown-menu user-menu" aria-labelledby="dropdownMenuButton" style="display: none;">
-                <li><a href="/user/">Профиль</a></li>
                 <li class="logout"><a href="<?= \yii\helpers\Url::to(['site/logout']) ?>">Выйти</a></li>
             </ul>
         </div>
@@ -70,11 +69,12 @@ AppAsset::register($this);
                     <form action="">
                         <ul class="categories__list">
                             <li class="categories__item">
-                                <input type="checkbox" id="cat1" class="checkbox">
-                                <label class="checkbox__label" for="cat1">Фастфуд <span class="categories__item_amount">(12)</span></label>
+                                <a class="categories__item_link" href="<?= \yii\helpers\Url::to('/') ?>">Проекты</a>
+                            </li>
+                            <li class="categories__item">
+                                <a class="categories__item_link" href="<?= \yii\helpers\Url::to(['user/update', 'id' => Yii::$app->user->getId()]) ?>">Профиль</a>
                             </li>
                         </ul>
-                        <button type="reset" class="button categories__button">Очистить фильтры</button>
                     </form>
                 </div>
             </div>

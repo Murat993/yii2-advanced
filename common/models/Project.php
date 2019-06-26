@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\User;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -37,8 +38,8 @@ class Project extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 1;
 
     const STATUSES_LABELS = [
-      self::STATUS_NOT_ACTIVE => 'неактивный',
-      self::STATUS_ACTIVE => 'активный',
+        self::STATUS_NOT_ACTIVE => 'неактивный',
+        self::STATUS_ACTIVE => 'активный',
     ];
 
     /**
@@ -57,9 +58,10 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['title', 'description',], 'required'],
             [['description'], 'string'],
-            [[ 'creator_id', 'updater_id', 'created_at'], 'safe'],
+            [['creator_id', 'updater_id', 'created_at'], 'safe'],
             [['active', 'creator_id', 'updater_id', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            [['active'], 'default', 'value' => self::STATUS_ACTIVE],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['updater_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updater_id' => 'id']],
         ];
@@ -94,10 +96,22 @@ class Project extends \yii\db\ActiveRecord
                 'updatedByAttribute' => 'updater_id'
             ],
             'saveRelations' => [
-                'class'     => SaveRelationsBehavior::class,
+                'class' => SaveRelationsBehavior::class,
                 'relations' => [self::RELATION_PROJECT_PROJECT_USER]
             ],
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if ($insert) {
+            $projectUser = new ProjectUser();
+            $projectUser->user_id = Yii::$app->user->identity->getId();
+            $projectUser->project_id = $this->id;
+            $projectUser->save();
+        }
     }
 
     /**
@@ -122,6 +136,12 @@ class Project extends \yii\db\ActiveRecord
     public function getProjectUsers()
     {
         return $this->hasMany(ProjectUser::className(), ['project_id' => 'id']);
+    }
+
+    public function getProjectViaUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+            ->via(self::RELATION_PROJECT_PROJECT_USER);
     }
 
     /**

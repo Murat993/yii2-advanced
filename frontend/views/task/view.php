@@ -62,8 +62,24 @@ use yii\widgets\DetailView;
     </div>
 </div>
 <div class="modal__footer">
-    <div class="modal__cost">Задачу создал: <?= $model->creator->username; ?></div>
+    <div>
+        <div class="modal__cost">Задачу создал: <?= $model->creator->username; ?></div>
+        <?php if ($model->executor_id): ?>
+            <div class="modal__cost">Задачу взял: <?= $model->executor->username; ?></div>
+        <?php endif; ?>
+    </div>
     <div class="modal__spinner">
     </div>
-    <button class="button modal__add-cart">Взять задачу</button>
+    <?php if (empty($model->completed_at)): ?>
+        <?php if (empty($model->executor_id)): ?>
+            <button class="button modal__add-cart give_task_to_user"
+                    data-task_user="<?= Yii::$app->user->id ?>"
+                    data-task_id="<?= $model->id ?>">Взять задачу
+            </button>
+        <?php else: ?>
+            <button class="button modal__add-cart complete_task_to_user"
+                    data-task_id="<?= $model->id ?>">Завершить задачу
+            </button>
+        <?php endif; ?>
+    <?php endif; ?>
 </div>

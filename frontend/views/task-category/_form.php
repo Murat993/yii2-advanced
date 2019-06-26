@@ -14,7 +14,8 @@ use yii\widgets\ActiveForm;
         'id'=>'form-task-category',
         'options' => [
             'class' => 'ajax-form',
-            'data-pjax_name_id' => 'task-category-pjax'
+            'data-pjax_name_id' => 'task-category-pjax',
+            'data-modal_id' => 'modal-task-category',
         ],
     ]); ?>
 

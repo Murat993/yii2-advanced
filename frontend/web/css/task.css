@@ -80,3 +80,6 @@
 .list-group-item:hover {
     background: #e2dadf;
 }
+.complete {
+    background: #6def56;
+}

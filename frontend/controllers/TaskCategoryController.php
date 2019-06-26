@@ -43,7 +43,7 @@ class TaskCategoryController extends Controller
      * Lists all TaskCategory models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $this->view->title = 'Список задач';
         $searchModel = new TaskCategorySearch();

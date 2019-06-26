@@ -43,7 +43,6 @@ class ProjectUser extends \yii\db\ActiveRecord
         return [
             [['project_id', 'user_id'], 'required'],
             [['project_id', 'user_id'], 'integer'],
-            [['role'], 'string'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -58,7 +57,6 @@ class ProjectUser extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'project_id' => Yii::t('app', 'Project ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'role' => Yii::t('app', 'Role'),
         ];
     }
 

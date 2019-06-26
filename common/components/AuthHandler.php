@@ -87,7 +87,7 @@ class AuthHandler
         $user = new User([
             'username' => "$firstName $lastName",
             'status' => User::STATUS_ACTIVE,
-            'avatar' => $photo,
+            'social_photo' => $photo,
             'password' => $password,
         ]);
         return $user;

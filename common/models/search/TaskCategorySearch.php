@@ -39,7 +39,7 @@ class TaskCategorySearch extends TaskCategory
      */
     public function search($params)
     {
-        $query = TaskCategory::find();
+        $query = TaskCategory::find()->where(['project_id' => $params['id']]);
 
         // add conditions that should always apply here
 

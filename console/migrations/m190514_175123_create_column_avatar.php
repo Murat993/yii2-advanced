@@ -14,6 +14,7 @@ class m190514_175123_create_column_avatar extends Migration
     {
         $this->addColumn('{{%user}}', 'access_token', $this->string('255')->defaultValue(null));
         $this->addColumn('{{%user}}', 'avatar', $this->string('255')->defaultValue(null));
+        $this->addColumn('{{%user}}', 'social_photo', $this->string('255')->defaultValue(null));
     }
 
     public function down()

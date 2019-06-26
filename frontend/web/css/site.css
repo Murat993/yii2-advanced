@@ -429,8 +429,8 @@ a:hover {
     position: relative;
 }
 .header-user-login ul.dropdown-menu.user-menu {
-    left: -140px;
-    top: 60px;
+    left: -20px;
+    top: 40px;
     width: 200px;}
 @media (max-width: 768px) {
     .header-user-login ul.dropdown-menu.user-menu {
@@ -688,6 +688,16 @@ ul.dropdown-menu li:first-child a {
 
 .checkbox {
     display: none; }
+
+.categories__item {
+    text-align: center;
+}
+
+.categories__item_link {
+    color: #79c989;
+    font-size: 22px;
+    text-align: center;
+}
 
 .checkbox__label {
     color: #424242;
