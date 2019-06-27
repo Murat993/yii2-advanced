@@ -27,8 +27,18 @@ class TaskController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
+                        'actions' => [
+                            'index', 'view', 'create', 'task-take', 'complete-task', 'update', 'delete'
+                        ],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action) {
+                            if (Yii::$app->user->can('client-user-permissions')) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     ],
                 ],
             ],

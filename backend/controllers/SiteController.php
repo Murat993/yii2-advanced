@@ -22,8 +22,18 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'chat-room'],
+                        'actions' => [
+                            'login', 'error', 'chat-room'
+                        ],
                         'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action) {
+                            if (Yii::$app->user->can('admin-permissions')) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     ],
                     [
                         'actions' => ['logout', 'index'],

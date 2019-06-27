@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Comment;
 use common\models\search\CommentSearch;
+use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,6 +22,25 @@ class CommentController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => [
+                            'create', 'update', 'delete'
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action) {
+                            if (Yii::$app->user->can('client-user-permissions')) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -6,6 +6,11 @@ use yii\widgets\ListView;
 ?>
 <header class="main__header">
     <h1 class="main__title">Список задач</h1>
+    <?php
+    if (\Yii::$app->user->can('client-superuser-permissions', ['project' => $project])) {
+
+    }
+    ?>
     <div class="main__sort">
         <?= Html::button(Yii::t('app', 'Создать категорию'),
             ['class' => 'btn-create-task-category',

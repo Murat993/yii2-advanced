@@ -26,8 +26,18 @@ class ProjectController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
+                        'actions' => [
+                            'index', 'view', 'create', 'update', 'delete'
+                        ],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action) {
+                            if (Yii::$app->user->can('client-user-permissions')) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     ],
                 ],
             ],

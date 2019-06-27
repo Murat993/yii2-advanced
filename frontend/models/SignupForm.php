@@ -65,7 +65,7 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         return $user->save() &&
                $this->sendEmail($user) &&
-               Yii::$app->authService->givePermissions($user->id, AuthService::ROLE_ADMIN);
+               Yii::$app->authService->givePermissions($user->id, AuthService::ROLE_CLIENT_USER);
 
     }
 

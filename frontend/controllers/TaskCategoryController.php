@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Project;
 use Yii;
 use common\models\TaskCategory;
 use common\models\search\TaskCategorySearch;
@@ -25,8 +26,18 @@ class TaskCategoryController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
+                        'actions' => [
+                            'index', 'view', 'create', 'update', 'delete'
+                        ],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action) {
+                            if (Yii::$app->user->can('client-user-permissions')) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     ],
                 ],
             ],
@@ -49,9 +60,12 @@ class TaskCategoryController extends Controller
         $searchModel = new TaskCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $project = Project::findOne($id);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'project' => $project,
         ]);
     }
 
