@@ -31,7 +31,7 @@ AppAsset::register($this);
         <button class="header__menu-button">
 
         </button>
-        <a href="/" class="header__logo">
+         <a href="/" class="header__logo">
             <img src="/img/group-logo.svg" alt="">
         </a>
         <div class="header__search">
@@ -64,7 +64,6 @@ AppAsset::register($this);
     <div class="content__wrapper">
         <aside class="aside">
             <div class="aside__wrap">
-                <h3 class="aside__title">Категории</h3>
                 <div class="aside__categories">
                     <form action="">
                         <ul class="categories__list">

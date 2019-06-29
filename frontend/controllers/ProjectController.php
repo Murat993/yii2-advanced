@@ -74,7 +74,6 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
-        _end($this->findModel($id)  );
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -110,7 +109,7 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['task-category/index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

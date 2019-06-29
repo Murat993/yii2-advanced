@@ -8,7 +8,10 @@ use yii\widgets\ListView;
     <h1 class="main__title">Список задач</h1>
     <?php
     if (\Yii::$app->user->can('client-superuser-permissions', ['project' => $project])) {
-
+       echo Html::a(Yii::t('app', 'Редактировать проект'),
+            ['project/update', 'id' => $project->id],
+            ['class' => 'button',
+            ]);
     }
     ?>
     <div class="main__sort">

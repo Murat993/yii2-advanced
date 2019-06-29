@@ -21,7 +21,7 @@ use yii\helpers\Url;
                 </div>
             </header>
             <div class="shops-dishes__desc shops-only__desc">
-                <div class="shops-dishes__status shops-dishes__status_open"><?= Project::STATUSES_LABELS[$model->active ] ?></div>
+                <div class="shops-dishes__status <?= $model->active === Project::STATUS_NOT_ACTIVE ? 'shops-dishes__status_close' : "shops-dishes__status_open" ?>"><?= Project::STATUSES_LABELS[$model->active]?></div>
                 <ul class="tag__list">
                     <li class="tag__item"><?= $model->description ?></li>
                 </ul>

@@ -8,22 +8,21 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 ?>
-<div class="site-signup">
-    <h1>Регистрация</h1>
-
-    <div class="row">
-        <div class="col-lg-5">
+<div class="login__wrapper">
+    <div class="login__content">
+        <div class="login__form">
+            <h1 class="login__title">Регистрация</h1>
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+            <?= $form->field($model, 'username')
+                ->textInput(['class' => 'order__input', 'placeholder' => 'Логин']) ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'email')
+                ->textInput(['class' => 'order__input', 'placeholder' => 'Email']) ?>
 
-                <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'password')
+                ->passwordInput(['class' => 'order__input', 'placeholder' => 'Пароль']) ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+            <?= Html::submitButton('Зарегестироваться', ['class' => 'button', 'name' => 'signup-button']) ?>
 
             <?php ActiveForm::end(); ?>
         </div>

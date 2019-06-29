@@ -10,18 +10,15 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Восстановить пароль';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-request-password-reset">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="row">
-        <div class="col-lg-5">
+<div class="login__wrapper">
+    <div class="login__content">
+        <div class="login__form">
+            <h1 class="login__title">Восстановить пароль</h1>
             <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email']) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
-                </div>
+            <?= Html::submitButton('Отправить', ['class' => 'button']) ?>
 
             <?php ActiveForm::end(); ?>
         </div>

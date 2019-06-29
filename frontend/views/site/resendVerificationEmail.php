@@ -9,20 +9,15 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Resend verification email';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-resend-verification-email">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Please fill out your email. A verification email will be sent there.</p>
-
-    <div class="row">
-        <div class="col-lg-5">
+<div class="login__wrapper">
+    <div class="login__content">
+        <div class="login__form">
+            <h1 class="login__title">Отправить письмо с подтверждением</h1>
             <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
 
-            <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email']) ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
-            </div>
+            <?= Html::submitButton('Отправить', ['class' => 'button']) ?>
 
             <?php ActiveForm::end(); ?>
         </div>
